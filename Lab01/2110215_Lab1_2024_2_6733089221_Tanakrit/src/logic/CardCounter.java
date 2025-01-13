@@ -1,10 +1,10 @@
 package logic;
 
 public class CardCounter {
-	
+
 	private UnitCard card;
 	private int count;
-	
+
 	public CardCounter(UnitCard card, int count) {
 		setCard(card);
 		setCount(count);
@@ -27,7 +27,7 @@ public class CardCounter {
 	}
 
 	public String toString() {
-		return  this.getCard() + " x " + this.getCount();
+		return this.getCard() + " x " + this.getCount();
 	}
 
 }

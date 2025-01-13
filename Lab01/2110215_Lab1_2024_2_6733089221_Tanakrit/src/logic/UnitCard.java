@@ -29,10 +29,9 @@ public class UnitCard {
 	}
 
 	public void setName(String name) {
-		if(name.isBlank()) {
+		if (name.isBlank()) {
 			this.name = "Creature";
-		}
-		else {
+		} else {
 			this.name = name;
 		}
 	}
@@ -42,7 +41,7 @@ public class UnitCard {
 	}
 
 	public void setBloodCost(int bloodCost) {
-		this.bloodCost = ( bloodCost < 0 ? 0 : bloodCost);
+		this.bloodCost = (bloodCost < 0 ? 0 : bloodCost);
 	}
 
 	public int getPower() {
@@ -50,7 +49,7 @@ public class UnitCard {
 	}
 
 	public void setPower(int power) {
-		this.power = ( power < 0 ? 0 : power);
+		this.power = (power < 0 ? 0 : power);
 	}
 
 	public int getHealth() {
@@ -58,7 +57,7 @@ public class UnitCard {
 	}
 
 	public void setHealth(int health) {
-		this.health = ( health < 1 ? 1 : health);
+		this.health = (health < 1 ? 1 : health);
 	}
 
 	public String getFlavorText() {
