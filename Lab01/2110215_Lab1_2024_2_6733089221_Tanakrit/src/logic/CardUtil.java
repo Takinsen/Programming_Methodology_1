@@ -70,11 +70,10 @@ public class CardUtil {
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot Find File!");
+			System.out.println("File error! No new card added.");
 		} catch (NumberFormatException e) {
 			System.out.println("File contains string with incorrect format!");
 		}
-
-		System.out.println("File error! No new card added.");
 
 		sc.close();
 
