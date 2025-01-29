@@ -84,6 +84,8 @@ public class Deck {
 				index++;
 			}
 		}
+		this.deckList = newDeckList;
+		this.deckSize = deckList.length;
 		return removeCard;
 	}
 

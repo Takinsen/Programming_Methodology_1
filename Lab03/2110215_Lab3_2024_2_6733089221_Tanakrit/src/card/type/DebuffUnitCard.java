@@ -13,8 +13,10 @@ public class DebuffUnitCard extends UnitCard {
 
 	@Override
 	public int attackUnit(UnitCard unitCard) {
+		int fullHP = unitCard.getHealth();
+		unitCard.setHealth(fullHP - this.getPower());
 		unitCard.setPower(unitCard.getPower() - debuffPower);
-		return attackUnit(unitCard);
+		return fullHP > this.getPower() ? this.getPower() : fullHP;
 	}
 
 	public int getDebuffPower() {
