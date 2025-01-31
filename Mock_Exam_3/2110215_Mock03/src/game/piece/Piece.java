@@ -7,7 +7,7 @@ import game.board.Board;
 import game.position.Position;
 import game.util.Movement;
 
-public class Piece {
+public abstract class Piece {
 	protected boolean white;
 	protected boolean moved;
 	protected Position position;
@@ -54,15 +54,9 @@ public class Piece {
 
 	// Method
 
-	public Set<Position> getLegalMove() {
-		Movement mv = new Movement(position, board);
-		mv.getMovePositions(this);
-		return mv.getMoves();
-	}
+	public abstract Set<Position> getLegalMove();
 
-	public Object deepCopy() {
-		return new Piece(this.isWhite() , this.getPosition() , this.getBoard());
-	}
+	public abstract Object deepCopy();
 
 	public void moveHandle(Position to) {
 		this.hadMoved();
