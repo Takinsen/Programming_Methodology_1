@@ -10,51 +10,56 @@ import javafx.scene.text.Text;
 import logic.GameLogic;
 import logic.Timer;
 
-public class TimerPane extends VBox{
-	
+public class TimerPane extends VBox {
+
 	private Text header;
 	private Text timer;
-	
+
 	private int pl;
-	
+
 	private Button button;
-	
+
 	public TimerPane(int pl) {
 		super();
-		
+
 		this.setPrefWidth(192);
 		this.setPrefHeight(80);
 		this.setAlignment(Pos.CENTER);
-		
-		
-		header = new Text("P"+(pl+1)+" Timer");
+
+		header = new Text("P" + (pl + 1) + " Timer");
 		timer = new Text("00:00:00");
-		
+
 		header.setFont(new Font(25));
 		timer.setFont(new Font(20));
-		
+
 		button = new Button("Start");
-		
+
 		this.getChildren().add(header);
 		this.getChildren().add(timer);
 		this.getChildren().add(button);
-		
+
 		setTimer(GameLogic.getPlayerTimer(pl));
 		button.setDisable(true);
-		
+
 		/*
-		 * FILL CODE - Clicking button should calls the static method beginTurns(int pl) from GameLogic.
+		 * FILL CODE - Clicking button should calls the static method beginTurns(int pl)
+		 * from GameLogic.
 		 */
-		
-		GameLogic.beginTurns(pl);
-		
-		
+		button.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				GameLogic.beginTurns(pl);
+			}
+		});
+
 	}
-	
+
 	public void setTimer(Timer t) {
 		timer.setText(t.toString());
 	}
-	
+
 	public void setButtonDisable(boolean b) {
 		button.setDisable(b);
 	}
