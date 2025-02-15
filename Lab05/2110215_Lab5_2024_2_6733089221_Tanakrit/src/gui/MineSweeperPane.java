@@ -2,8 +2,6 @@ package gui;
 
 import java.util.ArrayList;
 
-import javax.swing.border.StrokeBorder;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
@@ -14,48 +12,39 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-
-//import from javafx instead javaawt
 import javafx.scene.paint.Color;
 
 public class MineSweeperPane extends GridPane {
-	
-	private ArrayList<MineSweeperSquare> allCells ;
-	
+	private ArrayList<MineSweeperSquare> allCells;
+
 	public MineSweeperPane() {
-		this.allCells = new ArrayList<MineSweeperSquare>();
+		super();
+		allCells = new ArrayList<MineSweeperSquare>();
 		this.setHgap(8);
 		this.setVgap(8);
 		this.setPadding(new Insets(8));
 		this.setPrefWidth(500);
 		this.setAlignment(Pos.CENTER);
-		
-		BorderStroke borderStroke = new BorderStroke(
-				Color.LIGHTGRAY,
-				BorderStrokeStyle.SOLID,
-				CornerRadii.EMPTY,
-				BorderWidths.DEFAULT
-				);
-		this.setBorder(new Border(borderStroke));
-		
-		BackgroundFill bgFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
-		this.setBackground(new Background(bgFill));
-		
-//		add minesweeper into pane
-		
-		for(int i = 0 ; i<5 ; i++) {
-			for(int j = 0 ; j<5 ; j++) {
-				MineSweeperSquare miness = new MineSweeperSquare(i,j) ;
-				this.allCells.add(miness) ;
-				this.add(miness, i, j);
+		BorderStroke b = new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT);
+		this.setBorder(new Border(b));
+		BackgroundFill backgroundFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
+		this.setBackground(new Background(backgroundFill));
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				MineSweeperSquare msq = new MineSweeperSquare(i, j);
+				allCells.add(msq);
+				this.add(msq, i, j);
 			}
 		}
 	}
 	
-//	getter
-	public ArrayList<MineSweeperSquare> getAllCells(){
-		return allCells ;
+	public  ArrayList<MineSweeperSquare> getAllCells(){
+		return allCells;
+	}
+
+	public void setAllCells(ArrayList<MineSweeperSquare> allCells) {
+		this.allCells = allCells;
 	}
 	
-	
+
 }

@@ -14,24 +14,22 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		 HBox root = new HBox();
-		 root.setPadding(new Insets(10));
-		 root.setSpacing(10);
-		 root.setPrefHeight(400);
-		 root.setPrefWidth(800);
-		 
-		 MineSweeperPane msp = new MineSweeperPane() ;
-		 ControlPane cp = new ControlPane(msp) ;
-		 ControlGridPane cgp = new ControlGridPane(cp) ;
-		 GameLogic.getInstance().setControlPane(cp);
-		 
-//		 add to MinseSweeperPane and ControlGridPane to root
-		 root.getChildren().addAll(msp,cgp) ;
-//		 create scene with root
-		 Scene sc = new Scene(root) ;
-		 primaryStage.setScene(sc);
-		 primaryStage.setTitle("MineSweeper");
-		 primaryStage.show();
+		HBox root = new HBox();
+		root.setPadding(new Insets(10));
+		root.setSpacing(10);
+		root.setPrefHeight(400);
+		root.setPrefWidth(800);
+		MineSweeperPane msp = new MineSweeperPane();
+		ControlPane cp = new ControlPane(msp);
+		ControlGridPane cgp = new ControlGridPane(cp);
+		GameLogic.getInstance().setControlPane(cp);
+
+		root.getChildren().addAll(msp, cgp);
+		Scene scene = new Scene(root);
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("MineSweeper");
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {
