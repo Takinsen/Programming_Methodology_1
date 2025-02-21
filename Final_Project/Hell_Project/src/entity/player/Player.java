@@ -22,7 +22,7 @@ public class Player extends Piece{
 	public Player(Double x, Double y , int hp) {
 		// TODO Auto-generated constructor stub
 		super(x , y , hp);
-		this.ability.add(new ShootStraight(10 , 0.5));	
+		this.ability.add(new ShootStraight(10 , 0.1));	
 	}
 	
 	// Getters & Setters

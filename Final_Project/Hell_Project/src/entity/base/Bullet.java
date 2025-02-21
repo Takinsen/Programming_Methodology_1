@@ -13,15 +13,15 @@ public class Bullet extends Entity implements Relocatable {
 		super(posX, posY);
 		setDamage(damage);
 		setSpeed(speed);
+		setDirection(direction);
 		setPlayerBullet(isPlayerBullet);
 	}
 
 	// Method
 
-	public void move() {
+	public void move() {	
 		switch (this.direction) {
 		case 1: {
-			System.out.println("Move-Up");
 			moveUp();
 			break;
 		}

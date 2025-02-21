@@ -60,10 +60,7 @@ public abstract class Piece extends Entity implements Relocatable {
         for (Ability ability : shootAbilities) {
         	if(ability instanceof Shoot) {
         		ArrayList<Bullet> newBullets = ((Shoot) ability).createBullet(this);
-        		System.err.println("Number of Bullet : " + GameLogic.getInstance().getBullets().size());
-        		System.err.println("Number of new Bullet : " + newBullets.size());
         		GameLogic.getInstance().getBullets().addAll(newBullets);
-        		System.err.println("Number of NOW Bullet : " + GameLogic.getInstance().getBullets().size());
         	}
         }
     }

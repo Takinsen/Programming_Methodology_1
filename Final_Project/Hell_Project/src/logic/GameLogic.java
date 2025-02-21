@@ -52,9 +52,7 @@ public class GameLogic {
     private void updateGame() {
         if (!isRunning) return;
         ArrayList<Bullet> toRemove = new ArrayList<>();
-        System.out.println(getPlayer().getGridX() + "," + getPlayer().getGridY());
         for (Bullet bullet : bullets) {
-        	System.out.println("Updating bullet at position: (" + bullet.getGridX() + ", " + bullet.getGridY() + ")");
             bullet.move();
             if (bullet.getGridY() <= 0) {
                 toRemove.add(bullet);
