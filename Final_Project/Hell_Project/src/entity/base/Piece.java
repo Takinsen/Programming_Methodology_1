@@ -4,67 +4,74 @@ import java.util.ArrayList;
 
 import ability.Ability;
 import ability.Shoot;
+import gui.GameGUI;
+import javafx.application.Platform;
+import javafx.scene.image.ImageView;
 import logic.GameLogic;
 
 public abstract class Piece extends Entity implements Relocatable {
-	
+
+	private static final int GRID_BOUNDARY = GameGUI.getBoardSize() - 1;
 	private int health;
 	private boolean isDead;
-	private static final int GRID_BOUNDARY = 15;
+	protected ImageView imageView;
 	protected ArrayList<Ability> ability;
 
-	public Piece(Double x, Double y , int hp) {
+	public Piece(Double x, Double y, int hp) {
 		super(x, y);
 		setHealth(hp);
 		ability = new ArrayList<Ability>();
+	}
+
+	public void takeDamage(int damage) {
+		this.setHealth(getHealth() - damage);
+	}
+
+	public void shootBullet() {
+		ArrayList<Ability> shootAbilities = getAbility();
+		for (Ability ability : shootAbilities) {
+			if (ability instanceof Shoot) {
+				ArrayList<Bullet> newBullets = ((Shoot) ability).createBullet(this);
+				GameLogic.getInstance().getBullets().addAll(newBullets);
+			}
+		}
+	}
+
+	public void updatePlayerPosition() {
+		Platform.runLater(() -> {
+	        imageView.setX(getGridX() * GameGUI.getTileSize());
+	        imageView.setY(getGridY() * GameGUI.getTileSize());
+	    });
 	}
 
 	@Override
 	public void moveUp() {
 		if (gridY > 0)
 			gridY--;
+		updatePlayerPosition();
 	}
 
 	@Override
 	public void moveDown() {
 		if (gridY < GRID_BOUNDARY)
 			gridY++;
+		updatePlayerPosition();
 	}
 
 	@Override
 	public void moveLeft() {
 		if (gridX > 0)
 			gridX--;
+		updatePlayerPosition();
 	}
 
 	@Override
 	public void moveRight() {
 		if (gridX < GRID_BOUNDARY)
 			gridX++;
+		updatePlayerPosition();
 	}
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	public void takeDamage(int damage) {
-		this.setHealth(getHealth() - damage);
-	}
-	
-	public void shootBullet() {
-        // Get player's abilities
-        ArrayList<Ability> shootAbilities = getAbility();
-
-        for (Ability ability : shootAbilities) {
-        	if(ability instanceof Shoot) {
-        		ArrayList<Bullet> newBullets = ((Shoot) ability).createBullet(this);
-        		GameLogic.getInstance().getBullets().addAll(newBullets);
-        	}
-        }
-    }
-	
 	// Getters & Setters
 
 	public int getHealth() {
@@ -90,6 +97,12 @@ public abstract class Piece extends Entity implements Relocatable {
 	public void setDead(boolean isDead) {
 		this.isDead = isDead;
 	}
-	
 
+	public ImageView getImageView() {
+		return imageView;
+	}
+
+	public void setImageView(ImageView imageView) {
+		this.imageView = imageView;
+	}
 }

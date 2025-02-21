@@ -18,10 +18,10 @@ public class ShootDiagonal extends Shoot {
 	public ArrayList<Bullet> createBullet(Piece shooter) {
 		// TODO Auto-generated method stub
 		ArrayList<Bullet> newBullets = new ArrayList<Bullet>();
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY() - 1, getBulletDamage(), getBulletSpeed() , 5 , true));
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY() - 1, getBulletDamage(), getBulletSpeed() , 6 , true));
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY() - 1, getBulletDamage(), getBulletSpeed() , 7 , true));
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY() - 1, getBulletDamage(), getBulletSpeed() , 8 , true));
+		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 5 , true));
+		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 6 , true));
+		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 7 , true));
+		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 8 , true));
 		return newBullets;
 	}
 	

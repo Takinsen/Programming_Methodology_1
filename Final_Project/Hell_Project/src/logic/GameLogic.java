@@ -3,28 +3,26 @@ package logic;
 import entity.base.*;
 import entity.piece.*;
 import entity.player.Player;
+import gui.GameGUI;
 import javafx.animation.AnimationTimer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameLogic {
-    // ✅ Static instance (Singleton-like)
     private static GameLogic instance;
-
     private Player player;
     private ArrayList<Piece> enemies;
     private ArrayList<Bullet> bullets;
     private boolean isRunning;
 
     private GameLogic() {
-        player = new Player(8.0, 15.0 , 100); // Start position
+        player = new Player(8.0, 16.0 , 100); 
         enemies = new ArrayList<>();
         bullets = new ArrayList<>();
         isRunning = true;
         spawnEnemies();
     }
 
-    // ✅ Static method to get instance
     public static GameLogic getInstance() {
         if (instance == null) {
             instance = new GameLogic();
@@ -33,7 +31,7 @@ public class GameLogic {
     }
 
     private void spawnEnemies() {
-        enemies.add(new Pawn(8.0, 0.0 , 20)); // Example enemy
+        enemies.add(new Pawn(8.0, 0.0 , 20)); 
     }
 
     public void playerShoot() {
@@ -51,6 +49,12 @@ public class GameLogic {
 
     private void updateGame() {
         if (!isRunning) return;
+        
+        if (GameGUI.isSpacebarPressed() && Math.abs(System.currentTimeMillis() - GameGUI.getLastShootTime()) >= GameGUI.getShootCooldown()) {
+            player.shootBullet();
+            GameGUI.setLastShootTime(System.currentTimeMillis());
+        }
+        
         ArrayList<Bullet> toRemove = new ArrayList<>();
         for (Bullet bullet : bullets) {
             bullet.move();

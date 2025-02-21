@@ -84,12 +84,6 @@ public class Bullet extends Entity implements Relocatable {
 		this.gridX+=speed;
 	}
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-
-	}
-
 	// Getters & Setters
 
 	public int getDamage() {

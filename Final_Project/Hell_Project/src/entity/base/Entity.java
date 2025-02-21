@@ -28,8 +28,4 @@ public abstract class Entity {
 		this.gridY = gridY < 0 ? 0 : gridY;
 	}
 
-	// Abstract Method
-	
-	public abstract void destroy();
-
 }

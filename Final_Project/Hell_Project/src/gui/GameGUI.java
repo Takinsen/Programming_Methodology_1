@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -14,97 +15,162 @@ import javafx.stage.Stage;
 import logic.GameLogic;
 
 public class GameGUI extends Application {
+	private static boolean isSpacebarPressed = false;
+	private static long lastShootTime = 0;
+	private static final long SHOOT_COOLDOWN = 200;
 
-	private static final int BOARD_SIZE = 16;
-    private static final int TILE_SIZE = 40;
-    private static final int WIDTH = BOARD_SIZE * TILE_SIZE;
-    private static final int HEIGHT = BOARD_SIZE * TILE_SIZE;
-    
-    private GameLogic game;
-    private Canvas canvas;
-    private GraphicsContext gc;
+	private static final int BOARD_SIZE = 24;
+	private static final int TILE_SIZE = 40;
+	private static final int WIDTH = BOARD_SIZE * TILE_SIZE;
+	private static final int HEIGHT = BOARD_SIZE * TILE_SIZE;
 
-    @Override
-    public void start(Stage primaryStage) {
-    	game = GameLogic.getInstance();
-        canvas = new Canvas(WIDTH, HEIGHT);
-        gc = canvas.getGraphicsContext2D();
+	private GameLogic game;
+	private Canvas canvas;
+	private StackPane root;
+	private GraphicsContext gc;
 
-        StackPane root = new StackPane(canvas);
-        Scene scene = new Scene(root);
-        
-        // Handle player input
-        scene.setOnKeyPressed(event -> {
-            Player player = game.getPlayer();
-            switch (event.getCode()) {
-                case UP:
-                    player.moveUp();
-                    break;
-                case DOWN:
-                    player.moveDown();
-                    break;
-                case LEFT:
-                    player.moveLeft();
-                    break;
-                case RIGHT:
-                    player.moveRight();
-                    break;
-                case SPACE:
-                    game.playerShoot();
-                    break;
-                default:
-                    break;
-            }
-        });
+	@Override
+	public void start(Stage primaryStage) {
+		game = GameLogic.getInstance();
+		canvas = new Canvas(WIDTH, HEIGHT);
+		gc = canvas.getGraphicsContext2D();
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("What the Hell is This Chess?");
-        primaryStage.show();
+		ImageView playerImageView = GameLogic.getInstance().getPlayer().getPlayerImageView();
+		root = new StackPane(canvas);
+		root.getChildren().add(playerImageView);
 
-        // Start game loop
-        game.startGameLoop();
-        render();
-    }
+		Scene scene = new Scene(root);
 
-    private void render() {
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                gc.clearRect(0, 0, WIDTH, HEIGHT);
-                drawChessBoard();
-                drawEntities();
-            }
-        }.start();
-    }
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("What the Hell is This Chess?");
+		primaryStage.show();
 
-    // ♟️ Draw a proper 16x16 chess board
-    private void drawChessBoard() {
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                if ((row + col) % 2 == 0) {
-                    gc.setFill(Color.LIGHTGRAY);
-                } else {
-                    gc.setFill(Color.DARKGRAY);
-                }
-                gc.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            }
-        }
-    }
+		// Handle player input
+		scene.setOnKeyPressed(event -> {
+			Player player = game.getPlayer();
+			if (event.getCode() == KeyCode.UP) {
+				player.moveUp();
+			} else if (event.getCode() == KeyCode.DOWN) {
+				player.moveDown();
+			} else if (event.getCode() == KeyCode.LEFT) {
+				player.moveLeft();
+			} else if (event.getCode() == KeyCode.RIGHT) {
+				player.moveRight();
+			}
+			if (event.getCode() == KeyCode.SPACE) {
+				isSpacebarPressed = true;
+			}
+		});
+		scene.setOnKeyReleased(event -> {
+			if (event.getCode() == KeyCode.SPACE) {
+				isSpacebarPressed = false;
+			}
+		});
 
-    // 🔫 Draw player, enemies, bullets
-    private void drawEntities() {
-        Player player = game.getPlayer();
-        gc.setFill(Color.BLUE);
-        gc.fillRect(player.getGridX() * TILE_SIZE, player.getGridY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		// Start game loop
+		game.startGameLoop();
+		render();
 
-        gc.setFill(Color.RED);
-        for (Piece enemy : game.getEnemies()) {
-            gc.fillRect(enemy.getGridX() * TILE_SIZE, enemy.getGridY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        }
+	}
 
-        gc.setFill(Color.YELLOW);
-        for (Bullet bullet : game.getBullets()) {
-            gc.fillOval(bullet.getGridX() * TILE_SIZE, bullet.getGridY() * TILE_SIZE, TILE_SIZE / 3, TILE_SIZE / 3);
-        }
-    }
+	private void render() {
+		new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				gc.clearRect(0, 0, WIDTH, HEIGHT);
+				drawChessBoard();
+				drawEntities();
+				root.layout();
+			}
+		}.start();
+	}
+
+	// ♟️ Draw a proper 16x16 chess board
+	private void drawChessBoard() {
+		for (int row = 0; row < BOARD_SIZE; row++) {
+			for (int col = 0; col < BOARD_SIZE; col++) {
+				if ((row + col) % 2 == 0) {
+					gc.setFill(Color.LIGHTGRAY);
+				} else {
+					gc.setFill(Color.BLACK);
+				}
+				gc.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+			}
+		}
+	}
+
+	// 🔫 Draw player, enemies, bullets
+	private void drawEntities() {
+	
+
+		gc.setFill(Color.RED);
+		for (Piece enemy : game.getEnemies()) {
+			gc.fillRect(enemy.getGridX() * TILE_SIZE, enemy.getGridY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		}
+
+		gc.setFill(Color.YELLOW);
+		for (Bullet bullet : game.getBullets()) {
+			gc.fillOval(bullet.getGridX() * TILE_SIZE, bullet.getGridY() * TILE_SIZE, TILE_SIZE / 2.5, TILE_SIZE / 2.5);
+		}
+	}
+
+	public static boolean isSpacebarPressed() {
+		return isSpacebarPressed;
+	}
+
+	public static void setSpacebarPressed(boolean isSpacebarPressed) {
+		GameGUI.isSpacebarPressed = isSpacebarPressed;
+	}
+
+	public static long getLastShootTime() {
+		return lastShootTime;
+	}
+
+	public static void setLastShootTime(long lastShootTime) {
+		GameGUI.lastShootTime = lastShootTime < 0 ? 0 : lastShootTime;
+	}
+
+	public static long getShootCooldown() {
+		return SHOOT_COOLDOWN;
+	}
+
+	public GameLogic getGame() {
+		return game;
+	}
+
+	public void setGame(GameLogic game) {
+		this.game = game;
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+
+	public GraphicsContext getGc() {
+		return gc;
+	}
+
+	public void setGc(GraphicsContext gc) {
+		this.gc = gc;
+	}
+
+	public static int getBoardSize() {
+		return BOARD_SIZE;
+	}
+
+	public static int getTileSize() {
+		return TILE_SIZE;
+	}
+
+	public static int getWidth() {
+		return WIDTH;
+	}
+
+	public static int getHeight() {
+		return HEIGHT;
+	}
 }
