@@ -7,11 +7,13 @@ import entity.base.Entity;
 import entity.base.Piece;
 import entity.piece.Pawn;
 import entity.player.Player;
+import gui.GameGUI;
 
 public abstract class Shoot implements Ability {
 	
 	private int bulletDamage;
 	private double bulletSpeed;
+	protected static final double centerOffset = 0.3;
 	
 	// Constructor
 	

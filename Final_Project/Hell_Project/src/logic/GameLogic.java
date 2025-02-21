@@ -16,7 +16,7 @@ public class GameLogic {
     private boolean isRunning;
 
     private GameLogic() {
-        player = new Player(8.0, 16.0 , 100); 
+        player = new Player(1.0, 1.0 , 100); 
         enemies = new ArrayList<>();
         bullets = new ArrayList<>();
         isRunning = true;

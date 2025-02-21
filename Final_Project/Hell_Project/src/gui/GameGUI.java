@@ -19,7 +19,7 @@ public class GameGUI extends Application {
 	private static long lastShootTime = 0;
 	private static final long SHOOT_COOLDOWN = 200;
 
-	private static final int BOARD_SIZE = 24;
+	private static final int BOARD_SIZE = 17;
 	private static final int TILE_SIZE = 40;
 	private static final int WIDTH = BOARD_SIZE * TILE_SIZE;
 	private static final int HEIGHT = BOARD_SIZE * TILE_SIZE;

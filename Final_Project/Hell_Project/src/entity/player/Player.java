@@ -37,7 +37,7 @@ public class Player extends Piece {
 		this.imageView.setManaged(false);
 		this.imageView.setFitWidth(tileSize);
 		this.imageView.setFitHeight(tileSize);
-		this.updatePlayerPosition();
+		updatePlayerPosition();
 		System.out.println(this.imageView.getX() + "," + this.imageView.getY());
 	}
 

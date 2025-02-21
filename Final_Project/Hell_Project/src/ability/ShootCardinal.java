@@ -17,10 +17,10 @@ public class ShootCardinal extends Shoot {
 	public ArrayList<Bullet> createBullet(Piece shooter) {
 		// TODO Auto-generated method stub
 		ArrayList<Bullet> newBullets = new ArrayList<Bullet>();
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 1 , true));
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 2 , true));
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 3 , true));
-		newBullets.add(new Bullet(shooter.getGridX(), shooter.getGridY(), getBulletDamage(), getBulletSpeed() , 4 , true));
+		newBullets.add(new Bullet(shooter.getGridX() + centerOffset , shooter.getGridY() + centerOffset, getBulletDamage(), getBulletSpeed() , 1 , true));
+		newBullets.add(new Bullet(shooter.getGridX() + centerOffset , shooter.getGridY() + centerOffset, getBulletDamage(), getBulletSpeed() , 2 , true));
+		newBullets.add(new Bullet(shooter.getGridX() + centerOffset , shooter.getGridY() + centerOffset, getBulletDamage(), getBulletSpeed() , 3 , true));
+		newBullets.add(new Bullet(shooter.getGridX() + centerOffset , shooter.getGridY() + centerOffset, getBulletDamage(), getBulletSpeed() , 4 , true));
 		return newBullets;
 	}
 	

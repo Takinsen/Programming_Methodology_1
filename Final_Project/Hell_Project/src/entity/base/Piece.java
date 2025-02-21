@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import ability.Ability;
 import ability.Shoot;
 import gui.GameGUI;
+import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import logic.GameLogic;
 
 public abstract class Piece extends Entity implements Relocatable {
@@ -39,8 +44,26 @@ public abstract class Piece extends Entity implements Relocatable {
 
 	public void updatePlayerPosition() {
 		Platform.runLater(() -> {
-	        imageView.setX(getGridX() * GameGUI.getTileSize());
-	        imageView.setY(getGridY() * GameGUI.getTileSize());
+			double targetX = getGridX() * GameGUI.getTileSize();
+	        double targetY = getGridY() * GameGUI.getTileSize();
+	        
+	        // Smooth effect
+	        TranslateTransition moveAnimation = new TranslateTransition(Duration.millis(25), imageView);
+	        moveAnimation.setToX(targetX);
+	        moveAnimation.setToY(targetY);
+	        moveAnimation.setInterpolator(Interpolator.EASE_OUT);
+
+	        // bounce effect
+	        ScaleTransition bounce = new ScaleTransition(Duration.millis(50), imageView);
+	        bounce.setFromX(1.0);
+	        bounce.setFromY(1.0);
+	        bounce.setToX(1.1);
+	        bounce.setToY(0.9);
+	        bounce.setAutoReverse(true);
+	        bounce.setCycleCount(2);
+
+	        ParallelTransition animation = new ParallelTransition(moveAnimation, bounce);
+	        animation.play();
 	    });
 	}
 
