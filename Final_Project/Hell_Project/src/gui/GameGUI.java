@@ -77,7 +77,7 @@ public class GameGUI extends Application {
         }.start();
     }
 
-    // ♟️ Draw a proper 16x16 chessboard
+    // ♟️ Draw a proper 16x16 chess board
     private void drawChessBoard() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {

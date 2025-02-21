@@ -13,7 +13,7 @@ public abstract class Piece extends Entity implements Relocatable {
 	private static final int GRID_BOUNDARY = 15;
 	protected ArrayList<Ability> ability;
 
-	public Piece(int x, int y , int hp) {
+	public Piece(Double x, Double y , int hp) {
 		super(x, y);
 		setHealth(hp);
 		ability = new ArrayList<Ability>();
@@ -60,7 +60,10 @@ public abstract class Piece extends Entity implements Relocatable {
         for (Ability ability : shootAbilities) {
         	if(ability instanceof Shoot) {
         		ArrayList<Bullet> newBullets = ((Shoot) ability).createBullet(this);
+        		System.err.println("Number of Bullet : " + GameLogic.getInstance().getBullets().size());
+        		System.err.println("Number of new Bullet : " + newBullets.size());
         		GameLogic.getInstance().getBullets().addAll(newBullets);
+        		System.err.println("Number of NOW Bullet : " + GameLogic.getInstance().getBullets().size());
         	}
         }
     }

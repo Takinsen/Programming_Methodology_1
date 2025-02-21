@@ -19,10 +19,10 @@ public class Player extends Piece{
 	private double speed;
 	private Rectangle icon;
 
-	public Player(int x, int y , int hp) {
+	public Player(Double x, Double y , int hp) {
 		// TODO Auto-generated constructor stub
 		super(x , y , hp);
-		this.ability.add(new ShootStraight(10 , 10));	
+		this.ability.add(new ShootStraight(10 , 0.5));	
 	}
 	
 	// Getters & Setters

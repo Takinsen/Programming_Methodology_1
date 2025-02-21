@@ -15,7 +15,7 @@ public abstract class Shoot implements Ability {
 	
 	// Constructor
 	
-	public Shoot(int bulletDamage, int bulletSpeed) {
+	public Shoot(int bulletDamage, double bulletSpeed) {
 		setBulletDamage(bulletDamage);
 		setBulletSpeed(bulletSpeed);
 	}
@@ -47,7 +47,7 @@ public abstract class Shoot implements Ability {
 		return bulletSpeed;
 	}
 
-	public void setBulletSpeed(int bulletSpeed) {
+	public void setBulletSpeed(double bulletSpeed) {
 		this.bulletSpeed = bulletSpeed <= 0 ? 1 : bulletSpeed;
 	}
 	

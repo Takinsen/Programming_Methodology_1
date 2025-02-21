@@ -10,7 +10,7 @@ public class ShootDiagonal extends Shoot {
 	
 	// Shoot bullets in all diagonal direction simultaneously
 	
-	public ShootDiagonal(int bulletDamage, int bulletSpeed) {
+	public ShootDiagonal(int bulletDamage, double bulletSpeed) {
 		super(bulletDamage, bulletSpeed);
 	}
 	

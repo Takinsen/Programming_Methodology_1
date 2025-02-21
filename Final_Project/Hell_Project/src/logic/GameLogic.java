@@ -17,7 +17,7 @@ public class GameLogic {
     private boolean isRunning;
 
     private GameLogic() {
-        player = new Player(8, 15 , 100); // Start position
+        player = new Player(8.0, 15.0 , 100); // Start position
         enemies = new ArrayList<>();
         bullets = new ArrayList<>();
         isRunning = true;
@@ -33,7 +33,7 @@ public class GameLogic {
     }
 
     private void spawnEnemies() {
-        enemies.add(new Pawn(8, 0 , 20)); // Example enemy
+        enemies.add(new Pawn(8.0, 0.0 , 20)); // Example enemy
     }
 
     public void playerShoot() {
@@ -51,11 +51,12 @@ public class GameLogic {
 
     private void updateGame() {
         if (!isRunning) return;
-
         ArrayList<Bullet> toRemove = new ArrayList<>();
+        System.out.println(getPlayer().getGridX() + "," + getPlayer().getGridY());
         for (Bullet bullet : bullets) {
+        	System.out.println("Updating bullet at position: (" + bullet.getGridX() + ", " + bullet.getGridY() + ")");
             bullet.move();
-            if (bullet.getGridY() < 0) {
+            if (bullet.getGridY() <= 0) {
                 toRemove.add(bullet);
             }
         }

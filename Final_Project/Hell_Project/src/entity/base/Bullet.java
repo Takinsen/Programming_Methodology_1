@@ -8,11 +8,9 @@ public class Bullet extends Entity implements Relocatable {
 	private double speed;
 	private int direction;
 	private boolean isPlayerBullet;
-	private Rectangle icon;
 
-	public Bullet(int posX, int posY, int damage, double speed, int direction , boolean isPlayerBullet) {
+	public Bullet(Double posX, Double posY, int damage, double speed, int direction , boolean isPlayerBullet) {
 		super(posX, posY);
-		this.icon = new Rectangle(10, 10, Color.RED);
 		setDamage(damage);
 		setSpeed(speed);
 		setPlayerBullet(isPlayerBullet);
@@ -23,6 +21,7 @@ public class Bullet extends Entity implements Relocatable {
 	public void move() {
 		switch (this.direction) {
 		case 1: {
+			System.out.println("Move-Up");
 			moveUp();
 			break;
 		}
@@ -64,25 +63,25 @@ public class Bullet extends Entity implements Relocatable {
 	@Override
 	public void moveUp() {
 		// TODO Auto-generated method stub
-		gridY -= speed;
+		this.gridY -= speed; 
 	}
 
 	@Override
 	public void moveDown() {
 		// TODO Auto-generated method stub
-		gridY += speed;
+		this.gridY += speed;
 	}
 
 	@Override
 	public void moveLeft() {
 		// TODO Auto-generated method stub
-		gridX-=speed;
+		this.gridX-=speed;
 	}
 
 	@Override
 	public void moveRight() {
 		// TODO Auto-generated method stub
-		gridX+=speed;
+		this.gridX+=speed;
 	}
 
 	@Override
@@ -106,7 +105,7 @@ public class Bullet extends Entity implements Relocatable {
 	}
 
 	public void setSpeed(double speed) {
-		this.speed = speed <= 0 ? 0.1 : speed;
+		this.speed = speed <= 0 ? 0.5 : speed;
 	}
 
 	public int getDirection() {
@@ -123,14 +122,6 @@ public class Bullet extends Entity implements Relocatable {
 
 	public void setPlayerBullet(boolean isPlayerBullet) {
 		this.isPlayerBullet = isPlayerBullet;
-	}
-
-	public Rectangle getIcon() {
-		return icon;
-	}
-
-	public void setIcon(Rectangle icon) {
-		this.icon = icon;
 	}
 	
 	public boolean isOffScreen() {

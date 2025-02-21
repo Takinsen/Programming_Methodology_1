@@ -9,7 +9,7 @@ public class ShootCardinal extends Shoot {
 	
 	// Shoot bullets in Left , Right , Up , Down direction simultaneously
 
-	public ShootCardinal(int bulletDamage, int bulletSpeed) {
+	public ShootCardinal(int bulletDamage, double bulletSpeed) {
 		super(bulletDamage, bulletSpeed);
 	}
 

@@ -5,7 +5,7 @@ import entity.base.Piece;
 
 public class Bishop extends Piece {
 
-	public Bishop(int x, int y, int hp) {
+	public Bishop(Double x, Double y, int hp) {
 		// TODO Auto-generated constructor stub
 		super(x, y, hp);
 		ShootDiagonal sd_ability = new ShootDiagonal(5, 5);
